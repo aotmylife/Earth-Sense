@@ -5,3 +5,7 @@ class JVMPlatform: Platform {
 }
 
 actual fun getPlatform(): Platform = JVMPlatform()
+
+actual fun showToast(message: String) {
+    println("Toast on JVM: $message")
+}

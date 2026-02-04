@@ -4,17 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EarthSense</title>
-    <link type="text/css" rel="stylesheet" href="styles.css">
+    <style>
+        /* 1. อนุญาตให้พื้นที่หลักมีการ Scroll */
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            /* เปลี่ยนจาก hidden เป็น auto เพื่อให้เลื่อนได้ */
+            overflow: auto;
+            background-color: #121212;
+        }
+
+        /* 2. จัดการ Canvas ให้กางเต็มพื้นที่และรับ Event ครบถ้วน */
+        #ComposeTarget, canvas {
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+            outline: none; /* ลบเส้นประเวลาคลิกบน Web */
+            font-family: "Noto Sans Thai", "Kanit", -apple-system, sans-serif !important;
+        }
+
+        .loader-container {
+            position: fixed; /* ใช้ fixed เพื่อให้อยู่กลางจอเสมอแม้จะเลื่อนหน้าเว็บ */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+    </style>
 </head>
-<body style="text-align: center; align-content: center">
-<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 50 50" role="presentation">
-    <circle cx="25" cy="25" r="20" stroke="#ccc" stroke-width="4" fill="none"/>
-    <circle cx="25" cy="25" r="20" stroke="#333" stroke-width="4" fill="none" stroke-linecap="round"
-            stroke-dasharray="90 125">
-        <animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s"
-                          repeatCount="indefinite"/>
-    </circle>
-</svg>
+<body>
+
+<div class="loader-container">
+    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 50 50">
+        <circle cx="25" cy="25" r="20" stroke="#333" stroke-width="4" fill="none"/>
+        <circle cx="25" cy="25" r="20" stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round"
+                stroke-dasharray="90 125">
+            <animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s"
+                              repeatCount="indefinite"/>
+        </circle>
+    </svg>
+</div>
+
+<div id="ComposeTarget"></div>
+
 <script type="application/javascript" src="composeApp.js"></script>
 </body>
 </html>

@@ -14,14 +14,29 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import org.jetbrains.compose.resources.painterResource
 
 import earthsense.composeapp.generated.resources.Res
 import earthsense.composeapp.generated.resources.compose_multiplatform
+import org.koin.compose.viewmodel.koinViewModel
+
+interface PlatformNotifier {
+    fun showToast(message: String)
+}
+
+val LocalNotifier = staticCompositionLocalOf<PlatformNotifier> {
+    error("No Notifier provided")
+}
 
 @Composable
 @Preview
-fun App() {
+fun App(viewModel: MainViewModel = koinViewModel()) {
+
+    val helloText by viewModel.helloText.collectAsState()
+
+    val notifier = LocalNotifier.current
+
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
         Column(
@@ -33,6 +48,7 @@ fun App() {
         ) {
             Button(onClick = { showContent = !showContent }) {
                 Text("Click me!")
+                viewModel.updateText("HELLO!! Shared Code From ANDROID")
             }
             AnimatedVisibility(showContent) {
                 val greeting = remember { Greeting().greet() }
@@ -42,6 +58,8 @@ fun App() {
                 ) {
                     Image(painterResource(Res.drawable.compose_multiplatform), null)
                     Text("Compose: $greeting")
+                    Text("Message: $helloText")
+                    notifier.showToast(helloText)
                 }
             }
         }
