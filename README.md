@@ -1,6 +1,6 @@
 ### This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM).
 
-<img src="Screenshot.png" width="500" height="500" alt="App Preview">
+<img src="screenshot.png" width="500" height="500" alt="App Preview">
 
 * [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
   It contains several subfolders:
